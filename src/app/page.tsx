@@ -26,11 +26,12 @@ export default function Home() {
           transition={{ delay: 0.5, duration: 1 }}
           className="text-center max-w-5xl relative z-10 flex flex-col items-center"
         >
-          {/* PROFILE PHOTO */}
+          {/* 📸 PROFILE PHOTO - UPDATED TO NEW LOGO */}
           <div className="relative w-32 h-32 md:w-48 md:h-48 mb-8">
             <div className="absolute inset-0 bg-[#A9AC97] rounded-full blur-2xl opacity-40 animate-pulse" />
             <div className="relative w-full h-full rounded-full overflow-hidden border-4 border-white shadow-xl">
-              <Image src="/me.jpg" alt="Atharva" fill className="object-cover" priority />
+              {/* 👇 CHANGE: Pointing to the new logo.png file */}
+              <Image src="/logo.png" alt="AB Legacy Logo" fill className="object-cover" priority />
             </div>
           </div>
 
