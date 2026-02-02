@@ -29,7 +29,7 @@ const links = [
     textColor: "text-[#F2F2F2]",
     icon: Instagram
   },
-  // 3. DESIGN YOUTUBE (AB Legacy)
+  // 3. DESIGN YOUTUBE
   { 
     id: 3, 
     title: "AB Legacy Design", 
@@ -126,8 +126,9 @@ export default function ConnectPage() {
   const { scrollYProgress } = useScroll({ target: container, offset: ['start start', 'end end'] });
 
   return (
-    // ✨ THEME: Cream Background, Sage Text
-    <div ref={container} className="relative mt-[10vh] bg-[#FDF8E2] text-[#6D815E]">
+    // 🛠️ FIX APPLIED: Changed mt-[10vh] to pt-[10vh] and added min-h-screen
+    // This stops the paper from sliding down and revealing the black background
+    <div ref={container} className="relative min-h-screen bg-[#FDF8E2] text-[#6D815E] pt-[10vh]">
       <div className="h-[40vh] flex flex-col items-center justify-center text-center px-4">
         <h1 className="text-6xl md:text-8xl font-black tracking-tighter mb-6">UPLINK</h1>
         <p className="text-[#94AF80] font-bold animate-bounce">SCROLL TO STACK ↓</p>
