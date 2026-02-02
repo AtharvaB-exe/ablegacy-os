@@ -5,7 +5,7 @@ import { ArrowUpRight, Instagram, Youtube, Linkedin, Briefcase, Camera, Lock } f
 import React, { useRef } from "react";
 import Link from "next/link";
 
-// 👇 YOUR LINKS (Clean Data Only - No Colors)
+// Links Data
 const links = [
   { 
     title: "@atharva_bulbule", 
@@ -69,12 +69,17 @@ const Card = ({ i, item, progress, range, targetScale }: any) => {
   const container = useRef(null);
   const scale = useTransform(progress, range, [1, targetScale]);
   
+  // 🛠️ FIX 1: Simpler Top Spacing (Fixed pixels for uniformity)
+  // Removed the complex 'calc(-5vh...)' to make spacing consistent on all devices
+  const topOffset = `${i * 30}px`;
+
   return (
     <div ref={container} className="h-screen flex items-center justify-center sticky top-0">
       <motion.div 
-        style={{ scale, top: `calc(-5vh + ${i * 25}px)` }} 
-        // 👇 UNIFIED THEME: bg-[#1A1A1A] (Dark Grey) + Text White + Fixed Height/Width
-        className="flex flex-col relative -top-[25%] h-[350px] w-[90%] md:w-[600px] rounded-3xl p-8 md:p-10 origin-top shadow-2xl bg-[#1A1A1A] text-[#F2F2F2] border border-white/10"
+        style={{ scale, top: topOffset }} 
+        // 🛠️ FIX 2: Lighter Color Theme
+        // Changed bg-[#1A1A1A] (too black) to bg-[#2C3446] (Premium Slate Grey)
+        className="flex flex-col relative -top-[20%] h-[350px] w-[90%] md:w-[600px] rounded-3xl p-8 md:p-10 origin-top shadow-2xl bg-[#2C3446] text-[#F2F2F2] border border-white/10"
       >
         <div className="flex justify-between items-center w-full mb-8">
            <div className="flex items-center gap-2 font-mono font-bold text-[#888D7A]">
@@ -99,7 +104,6 @@ export default function ConnectPage() {
   const { scrollYProgress } = useScroll({ target: container, offset: ['start start', 'end end'] });
 
   return (
-    // 🛠️ FIX: Consistent Layout Background
     <div ref={container} className="relative min-h-screen w-full bg-[#FDF8E2] text-[#6D815E] pt-[10vh]">
       
       {/* Title Section */}
@@ -111,8 +115,9 @@ export default function ConnectPage() {
       {/* Stack Section */}
       <div className="pb-[50vh]">
         {links.map((link, i) => {
-          // 🛠️ FIX: Subtler scaling (0.05) so sizes look more regular/uniform
-          const targetScale = 1 - ((links.length - i) * 0.05);
+          // 🛠️ FIX 3: Drastically Reduced Shrinking Effect
+          // Changed 0.05 to 0.02. The back cards are now almost the same size as the front ones.
+          const targetScale = 1 - ((links.length - i) * 0.02);
           return <Card key={i} i={i} item={link} progress={scrollYProgress} range={[i * 0.25, 1]} targetScale={targetScale} />;
         })}
       </div>
