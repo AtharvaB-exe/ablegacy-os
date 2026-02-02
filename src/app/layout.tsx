@@ -1,26 +1,24 @@
+import type { Metadata } from "next";
+import { Inter } from "next/font/google";
 import "./globals.css";
-import { Dock } from "@/components/Dock";
-import { ThemeProvider } from "@/components/theme-provider";
 
-export const metadata = {
-  title: "XAB | Design & Legacy",
-  description: "Portfolio of a UI Designer & Gamer",
+const inter = Inter({ subsets: ["latin"] });
+
+export const metadata: Metadata = {
+  title: "Atharva Bulbule",
+  description: "Personal OS",
 };
 
 export default function RootLayout({
   children,
-}: {
+}: Readonly<{
   children: React.ReactNode;
-}) {
+}>) {
   return (
-    <html lang="en" suppressHydrationWarning>
-      <body className="antialiased overflow-x-hidden transition-colors duration-300">
-        <ThemeProvider attribute="class" defaultTheme="dark" enableSystem>
-          <main className="min-h-screen relative z-10">
-            {children}
-          </main>
-          <Dock />
-        </ThemeProvider>
+    <html lang="en">
+      {/* 🛠️ FIX: Added 'w-full' and removed any padding */}
+      <body className={`${inter.className} w-full m-0 p-0 overflow-x-hidden bg-[#F2F2F2]`}>
+        {children}
       </body>
     </html>
   );

@@ -1,84 +1,82 @@
 "use client";
 
-import { motion, AnimatePresence } from "framer-motion";
-import { ArrowUpRight, Upload, ScanLine } from "lucide-react";
-import React, { useState, useEffect, useRef } from "react";
+import { motion } from "framer-motion";
+import { ArrowUpRight } from "lucide-react";
 
-// ✨ THEME COLORS APPLIED TO CARDS
-const initialProjects = [
-  { id: 1, title: "Neon Banking", category: "App Design", size: "col-span-1 md:col-span-2 row-span-2", color: "bg-[#2F667F]", textColor: "text-[#F2F2D5]", desc: "Fintech dashboard redesign." },
-  { id: 2, title: "Pink Aura", category: "Branding", size: "col-span-1 row-span-1", color: "bg-[#5C9EAD]", textColor: "text-[#0C2C55]", desc: "Identity for a fashion brand." },
-  { id: 3, title: "Cyber HUD", category: "Game UI", size: "col-span-1 row-span-1", color: "bg-[#0C2C55]", textColor: "text-[#F2F2D5]", desc: "Sci-fi inventory system." },
-  { id: 4, title: "Zenith Web", category: "Web Design", size: "col-span-1 md:col-span-2 row-span-1", color: "bg-[#F2F2D5]", textColor: "text-[#0C2C55]", desc: "Minimalist architecture portfolio." },
+// Placeholder data - You can update these later
+const projects = [
+  {
+    id: 1,
+    title: "Neon Banking",
+    category: "APP DESIGN",
+    description: "Fintech dashboard redesign.",
+    color: "bg-[#33658A]", // Blue
+    colSpan: "md:col-span-2",
+  },
+  {
+    id: 2,
+    title: "Pink Aura",
+    category: "BRANDING",
+    description: "Identity for a fashion brand.",
+    color: "bg-[#558C8C]", // Teal
+    colSpan: "md:col-span-1",
+  },
+  {
+    id: 3,
+    title: "Cyber HUD",
+    category: "GAME UI",
+    description: "Sci-fi inventory system.",
+    color: "bg-[#0C2C55]", // Navy
+    colSpan: "md:col-span-1",
+  },
+  {
+    id: 4,
+    title: "Zenith Logo",
+    category: "VECTOR",
+    description: "Minimalist logo mark.",
+    color: "bg-[#2F4858]", // Dark Grey
+    colSpan: "md:col-span-2",
+  },
 ];
 
 export default function WorkPage() {
-  const [isAdmin, setIsAdmin] = useState(false);
-  const [showWireframe, setShowWireframe] = useState(true);
-  const fileInputRef = useRef<HTMLInputElement>(null);
-
-  useEffect(() => {
-    const timer = setTimeout(() => setShowWireframe(false), 1000);
-    return () => clearTimeout(timer);
-  }, []);
-
-  useEffect(() => {
-    const checkAdmin = () => {
-      setIsAdmin(localStorage.getItem("xab_admin") === "true");
-    };
-    checkAdmin();
-    window.addEventListener("adminChange", checkAdmin); 
-    return () => window.removeEventListener("adminChange", checkAdmin);
-  }, []);
-
   return (
-    // ✨ THEME: Cream Background, Navy Text
-    <div className="min-h-screen pt-24 pb-32 px-4 md:px-12 max-w-7xl mx-auto relative bg-[#F2F2D5] text-[#0C2C55]">
+    // 🛠️ FIX: Added 'w-full' to force full width and 'pt-[10vh]' for spacing
+    <div className="min-h-screen w-full bg-[#FDF8E2] text-[#33658A] pt-[10vh] px-4 md:px-10 pb-20">
       
-      <input type="file" ref={fileInputRef} className="hidden" onChange={(e) => alert(`Selected: ${e.target.files?.[0]?.name}`)} />
+      <motion.div 
+        initial={{ opacity: 0, y: 20 }}
+        animate={{ opacity: 1, y: 0 }}
+        className="mb-12"
+      >
+        <h1 className="text-6xl md:text-8xl font-black tracking-tighter mb-2">PROTOCOLS</h1>
+        <p className="text-[#558C8C] font-mono text-sm tracking-widest">Loading Design Schematics...</p>
+        <div className="h-px w-full bg-[#558C8C] opacity-30 mt-6" />
+      </motion.div>
 
-      <div className="mb-12 flex justify-between items-end border-b-2 border-[#5C9EAD]/30 pb-6">
-        <div>
-          <h1 className="text-5xl font-black mb-4 tracking-tighter">PROTOCOLS</h1>
-          <p className="text-xl font-medium text-[#2F667F] font-mono">Loading Design Schematics...</p>
-        </div>
-      </div>
-
-      <div className="grid grid-cols-1 md:grid-cols-3 gap-6 auto-rows-[240px]">
-        <AnimatePresence>
-          {isAdmin && (
-            <motion.div
-              initial={{ opacity: 0 }} animate={{ opacity: 1 }} exit={{ opacity: 0 }}
-              onClick={() => fileInputRef.current?.click()}
-              className="col-span-1 row-span-1 rounded-3xl border-2 border-dashed border-[#0C2C55] bg-transparent flex flex-col items-center justify-center cursor-pointer hover:bg-[#5C9EAD]/10"
-            >
-              <Upload size={24} />
-              <h3 className="font-bold text-lg mt-2">Upload Project</h3>
-            </motion.div>
-          )}
-        </AnimatePresence>
-
-        {initialProjects.map((item) => (
+      <div className="grid grid-cols-1 md:grid-cols-3 gap-4 max-w-6xl mx-auto">
+        {projects.map((project, i) => (
           <motion.div
-            key={item.id}
-            initial={{ opacity: 0, y: 20 }} animate={{ opacity: 1, y: 0 }}
-            transition={{ delay: showWireframe ? 1 : 0 }} 
-            className={`relative group rounded-3xl p-8 cursor-pointer overflow-hidden shadow-lg ${item.size} ${item.color} ${item.textColor}`}
+            key={project.id}
+            initial={{ opacity: 0, scale: 0.9 }}
+            whileInView={{ opacity: 1, scale: 1 }}
+            viewport={{ once: true }}
+            transition={{ delay: i * 0.1 }}
+            className={`${project.colSpan} ${project.color} h-[300px] md:h-[400px] rounded-3xl p-8 relative group overflow-hidden text-[#FDF8E2] cursor-pointer`}
           >
-            {showWireframe && (
-              <div className="absolute inset-0 bg-[#F2F2D5] z-50 flex items-center justify-center border border-[#0C2C55]">
-                <ScanLine className="text-[#0C2C55] animate-ping" size={40} />
-              </div>
-            )}
-            <div className="relative z-10 h-full flex flex-col justify-between">
-              <div className="flex justify-between items-start">
-                <div className="px-3 py-1 bg-white/20 backdrop-blur-md rounded-full text-xs font-bold uppercase">{item.category}</div>
-                <ArrowUpRight className="opacity-0 group-hover:opacity-100 transition-opacity" />
-              </div>
-              <div>
-                <h3 className="text-3xl font-black leading-none mb-2">{item.title}</h3>
-                <p className="opacity-80 font-medium">{item.desc}</p>
-              </div>
+            {/* Hover Effect */}
+            <div className="absolute inset-0 bg-black opacity-0 group-hover:opacity-10 transition-opacity duration-300" />
+            
+            <div className="flex justify-between items-start relative z-10">
+              <span className="bg-white/20 backdrop-blur-md px-3 py-1 rounded-full text-xs font-bold uppercase tracking-wider">
+                {project.category}
+              </span>
+              <ArrowUpRight className="opacity-0 group-hover:opacity-100 transition-opacity" />
+            </div>
+
+            <div className="absolute bottom-8 left-8 z-10">
+              <h2 className="text-3xl font-black mb-1">{project.title}</h2>
+              <p className="opacity-80 font-medium">{project.description}</p>
             </div>
           </motion.div>
         ))}
