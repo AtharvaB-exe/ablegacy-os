@@ -26,21 +26,18 @@ export default function Home() {
           transition={{ delay: 0.5, duration: 1 }}
           className="text-center max-w-5xl relative z-10 flex flex-col items-center"
         >
-          {/* 📸 PROFILE PHOTO - UPDATED TO NEW LOGO */}
+          {/* 📸 PROFILE PHOTO: Set to 'me.jpg' (Boy on Beach) */}
           <div className="relative w-32 h-32 md:w-48 md:h-48 mb-8">
             <div className="absolute inset-0 bg-[#A9AC97] rounded-full blur-2xl opacity-40 animate-pulse" />
             <div className="relative w-full h-full rounded-full overflow-hidden border-4 border-white shadow-xl">
-              {/* 👇 CHANGE: Pointing to the new logo.png file */}
-              <Image src="/logo.png" alt="AB Legacy Logo" fill className="object-cover" priority />
+              <Image src="/me.jpg" alt="Atharva" fill className="object-cover" priority />
             </div>
           </div>
 
-          {/* NAME */}
           <h1 className="text-5xl md:text-8xl font-black tracking-tighter mb-6 text-[#666E5D] uppercase text-center leading-tight">
             Atharva Bulbule
           </h1>
 
-          {/* TAGS */}
           <div className="flex flex-wrap justify-center gap-3 mb-8 text-xs md:text-sm font-mono font-bold text-[#888D7A]">
             <span className="flex items-center gap-2 px-4 py-2 bg-white rounded-lg border border-[#D1D1D1] shadow-sm">
               <Cpu size={14} /> CSD STUDENT
