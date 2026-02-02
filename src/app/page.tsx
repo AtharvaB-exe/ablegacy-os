@@ -1,73 +1,143 @@
 "use client";
 
-import { useState } from "react";
-import { motion, AnimatePresence } from "framer-motion";
-import IntroLock from "../components/IntroLock"; 
-import { Cpu, MapPin, Zap } from "lucide-react";
-import Image from "next/image";
+import { motion, useScroll, useTransform } from "framer-motion";
+import { ArrowUpRight, Instagram, Youtube, Linkedin, Briefcase, Camera, Lock } from "lucide-react";
+import React, { useRef } from "react";
+import Link from "next/link";
 
-export default function Home() {
-  const [locked, setLocked] = useState(true);
+// 👇 YOUR 8 VERIFIED LINKS
+const links = [
+  // 1. PRIVATE INSTA
+  { 
+    id: 1, 
+    title: "@atharva_bulbule", 
+    platform: "PRIVATE", 
+    desc: "Personal Life.", 
+    url: "https://www.instagram.com/atharva_bulbule?utm_source=ig_web_button_share_sheet&igsh=ZDNlZDc0MzIxNw==", 
+    color: "bg-[#A9AC97]", // Sage Grey
+    textColor: "text-[#F2F2F2]",
+    icon: Lock
+  },
+  // 2. DESIGN INSTA
+  { 
+    id: 2, 
+    title: "@designxab.exe", 
+    platform: "INSTAGRAM", 
+    desc: "UI/UX & Graphic Work.", 
+    url: "https://www.instagram.com/designxab.exe/", 
+    color: "bg-[#666E5D]", // Olive Green
+    textColor: "text-[#F2F2F2]",
+    icon: Instagram
+  },
+  // 3. DESIGN YOUTUBE (AB Legacy)
+  { 
+    id: 3, 
+    title: "AB Legacy Design", 
+    platform: "YOUTUBE", 
+    desc: "Creative Content.", 
+    url: "https://youtube.com/@ablegacy007?si=yBYv9aPGjNlYoXL5", 
+    color: "bg-[#2C3446]", // Slate
+    textColor: "text-[#F2F2F2]",
+    icon: Youtube
+  },
+  // 4. VISUALS INSTA
+  { 
+    id: 4, 
+    title: "@visuals.xab", 
+    platform: "INSTAGRAM", 
+    desc: "Photography & Edits.", 
+    url: "https://www.instagram.com/visuals.xab/", 
+    color: "bg-[#48004F]", // Purple
+    textColor: "text-[#FAD2D2]",
+    icon: Camera
+  },
+  // 5. GAMING INSTA
+  { 
+    id: 5, 
+    title: "@abxlegacy", 
+    platform: "INSTAGRAM", 
+    desc: "Gaming Highlights.", 
+    url: "https://www.instagram.com/abxlegacy/", 
+    color: "bg-[#FF9551]", // Orange
+    textColor: "text-[#222F3E]",
+    icon: Instagram
+  },
+  // 6. GAMING YOUTUBE
+  { 
+    id: 6, 
+    title: "AB Legacy Gaming", 
+    platform: "YOUTUBE", 
+    desc: "Long-form Gameplay.", 
+    url: "https://youtube.com/@ablegacy007?si=ovel5bdRYU5W8WI1", 
+    color: "bg-[#222F3E]", // Dark Navy
+    textColor: "text-[#FF9551]",
+    icon: Youtube
+  },
+  // 7. FREELANCER
+  { 
+    id: 7, 
+    title: "Atharva Bulbule", 
+    platform: "FREELANCER", 
+    desc: "Hire me for projects.", 
+    url: "https://www.freelancer.in/u/AtharvaB2307?sb=t", 
+    color: "bg-[#0C2C55]", // Navy Blue
+    textColor: "text-[#F2F2D5]",
+    icon: Briefcase
+  },
+  // 8. LINKEDIN
+  { 
+    id: 8, 
+    title: "Atharva Bulbule", 
+    platform: "LINKEDIN", 
+    desc: "Professional Profile.", 
+    url: "https://www.linkedin.com/in/atharva-bulbule-665775378", 
+    color: "bg-[#2F667F]", // Teal
+    textColor: "text-[#F2F2D5]",
+    icon: Linkedin
+  },
+];
+
+const Card = ({ i, item, progress, range, targetScale }: any) => {
+  const container = useRef(null);
+  const scale = useTransform(progress, range, [1, targetScale]);
+  
+  return (
+    <div ref={container} className="h-screen flex items-center justify-center sticky top-0">
+      <motion.div 
+        style={{ scale, top: `calc(-5vh + ${i * 25}px)` }} 
+        className={`flex flex-col relative -top-[25%] h-[400px] w-[90%] md:w-[700px] rounded-3xl p-8 md:p-10 origin-top shadow-xl ${item.color} ${item.textColor}`}
+      >
+        <div className="flex justify-between items-center w-full mb-6 md:mb-8">
+           <div className="flex items-center gap-2 font-mono font-bold opacity-80">
+             <item.icon size={20} />
+             {item.platform}
+           </div>
+           <Link href={item.url} target="_blank"><ArrowUpRight size={28} /></Link>
+        </div>
+        <h2 className="text-3xl md:text-5xl font-black tracking-tighter mb-4 break-words leading-tight">{item.title}</h2>
+        <p className="text-lg md:text-xl font-medium opacity-90">{item.desc}</p>
+      </motion.div>
+    </div>
+  )
+}
+
+export default function ConnectPage() {
+  const container = useRef(null);
+  const { scrollYProgress } = useScroll({ target: container, offset: ['start start', 'end end'] });
 
   return (
-    // ✨ THEME: Olive & Off-White
-    <main className="min-h-screen bg-[#F2F2F2] text-[#666E5D] relative overflow-hidden font-sans">
-      
-      <AnimatePresence>
-        {locked && <IntroLock onUnlock={() => setLocked(false)} />}
-      </AnimatePresence>
-
-      <div className="relative z-0 h-screen flex flex-col items-center justify-center p-4">
-        
-        {/* Subtle Background Grid */}
-        <div className="absolute inset-0 opacity-20 bg-[linear-gradient(to_right,#A9AC97_1px,transparent_1px),linear-gradient(to_bottom,#A9AC97_1px,transparent_1px)] bg-[size:24px_24px] pointer-events-none" />
-
-        <motion.div
-          initial={{ opacity: 0, scale: 0.9 }}
-          animate={{ opacity: locked ? 0 : 1, scale: locked ? 0.9 : 1 }}
-          transition={{ delay: 0.5, duration: 1 }}
-          className="text-center max-w-5xl relative z-10 flex flex-col items-center"
-        >
-          {/* 📸 PROFILE PHOTO */}
-          <div className="relative w-32 h-32 md:w-48 md:h-48 mb-8">
-            <div className="absolute inset-0 bg-[#A9AC97] rounded-full blur-2xl opacity-40 animate-pulse" />
-            <div className="relative w-full h-full rounded-full overflow-hidden border-4 border-white shadow-xl">
-              {/* Ensure you have 'me.jpg' in your public folder */}
-              <Image 
-                src="/me.jpg" 
-                alt="Atharva Bulbule" 
-                fill 
-                className="object-cover"
-                priority
-              />
-            </div>
-          </div>
-
-          {/* 📝 MAIN TITLE (YOUR NAME) */}
-          <h1 className="text-5xl md:text-8xl font-black tracking-tighter mb-6 text-[#666E5D] drop-shadow-sm uppercase text-center leading-tight">
-            Atharva Bulbule
-          </h1>
-
-          {/* 🏷️ INFO TAGS */}
-          <div className="flex flex-wrap justify-center gap-3 md:gap-4 mb-8 text-xs md:text-sm font-mono font-bold text-[#888D7A]">
-            <span className="flex items-center gap-2 px-4 py-2 bg-white rounded-lg border border-[#D1D1D1] shadow-sm hover:scale-105 transition-transform">
-              <Cpu size={14} /> CSD STUDENT @ SVIT VASAD
-            </span>
-            <span className="flex items-center gap-2 px-4 py-2 bg-white rounded-lg border border-[#D1D1D1] shadow-sm hover:scale-105 transition-transform">
-              <Zap size={14} /> UI/UX & MODDING
-            </span>
-            <span className="flex items-center gap-2 px-4 py-2 bg-white rounded-lg border border-[#D1D1D1] shadow-sm hover:scale-105 transition-transform">
-              <MapPin size={14} /> VADODARA, IN
-            </span>
-          </div>
-
-          {/* DESCRIPTION */}
-          <p className="text-lg md:text-2xl text-[#888D7A] max-w-2xl mx-auto mb-12 font-medium px-4">
-            Building the bridge between <span className="text-[#666E5D] font-bold">Code</span> and <span className="text-[#666E5D] font-bold">Content</span>.
-          </p>
-
-        </motion.div>
+    // ✨ THEME: Cream Background, Sage Text
+    <div ref={container} className="relative mt-[10vh] bg-[#FDF8E2] text-[#6D815E]">
+      <div className="h-[40vh] flex flex-col items-center justify-center text-center px-4">
+        <h1 className="text-6xl md:text-8xl font-black tracking-tighter mb-6">UPLINK</h1>
+        <p className="text-[#94AF80] font-bold animate-bounce">SCROLL TO STACK ↓</p>
       </div>
-    </main>
+      <div className="pb-[50vh]">
+        {links.map((link, i) => {
+          const targetScale = 1 - ((links.length - i) * 0.05);
+          return <Card key={i} i={i} item={link} progress={scrollYProgress} range={[i * 0.25, 1]} targetScale={targetScale} />;
+        })}
+      </div>
+    </div>
   );
 }
