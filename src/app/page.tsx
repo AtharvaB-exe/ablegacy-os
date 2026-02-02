@@ -44,7 +44,7 @@ export default function Home() {
 
           {/* MAIN TITLE */}
           <h1 className="text-7xl md:text-9xl font-black tracking-tighter mb-4 text-[#666E5D] drop-shadow-sm">
-            AB LEGACY
+            ATHARVA BULBULE
           </h1>
 
           {/* 👇 YOUR SPECIFIC INFO */}
