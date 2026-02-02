@@ -1,6 +1,8 @@
 import type { Metadata } from "next";
 import { Inter } from "next/font/google";
 import "./globals.css";
+// 👇 IMPORT THE DOCK COMPONENT
+import Dock from "../components/Dock"; 
 
 const inter = Inter({ subsets: ["latin"] });
 
@@ -16,9 +18,11 @@ export default function RootLayout({
 }>) {
   return (
     <html lang="en">
-      {/* 🛠️ FIX: Added 'w-full' and removed any padding */}
       <body className={`${inter.className} w-full m-0 p-0 overflow-x-hidden bg-[#F2F2F2]`}>
         {children}
+        
+        {/* 👇 THIS BRINGS THE DOCK BACK */}
+        <Dock />
       </body>
     </html>
   );
