@@ -1,8 +1,8 @@
 "use client";
 
-import { motion, useScroll, useTransform, AnimatePresence } from "framer-motion";
-import { ArrowUpRight, Instagram, Youtube, Linkedin, Briefcase, Camera, Lock, Plus, X, Upload, Check } from "lucide-react";
-import React, { useRef, useState } from "react";
+import { motion, useScroll, useTransform } from "framer-motion";
+import { ArrowUpRight, Instagram, Youtube, Linkedin, Briefcase, Camera, Lock } from "lucide-react";
+import React, { useRef } from "react";
 import Link from "next/link";
 
 const links = [
@@ -96,34 +96,6 @@ export default function ConnectPage() {
   const container = useRef(null);
   const { scrollYProgress } = useScroll({ target: container, offset: ['start start', 'end end'] });
 
-  // ADMIN STATE
-  const [showAdmin, setShowAdmin] = useState(false);
-  const [isAuthenticated, setIsAuthenticated] = useState(false);
-  const [password, setPassword] = useState("");
-  const [status, setStatus] = useState("idle");
-
-  const handleLogin = (e: React.FormEvent) => {
-    e.preventDefault();
-    if (password === "admin") {
-      setIsAuthenticated(true);
-      setPassword("");
-    } else {
-      alert("Wrong Password");
-    }
-  };
-
-  const handleAddLink = () => {
-    setStatus("uploading");
-    setTimeout(() => {
-      setStatus("success");
-      setTimeout(() => {
-        setShowAdmin(false);
-        setStatus("idle");
-        setIsAuthenticated(false);
-      }, 1500);
-    }, 1500);
-  };
-
   return (
     <div ref={container} className="relative min-h-screen w-full bg-[#FDF8E2] text-[#6D815E] pt-[10vh]">
       <div className="h-[30vh] md:h-[40vh] flex flex-col items-center justify-center text-center px-4">
@@ -136,65 +108,6 @@ export default function ConnectPage() {
           return <Card key={i} i={i} item={link} progress={scrollYProgress} range={[i * 0.25, 1]} targetScale={targetScale} />;
         })}
       </div>
-
-      {/* 🟢 FLOATING BUTTON */}
-      <motion.button
-        whileHover={{ scale: 1.1 }}
-        whileTap={{ scale: 0.9 }}
-        onClick={() => setShowAdmin(true)}
-        className="fixed bottom-24 right-6 md:right-10 z-30 bg-[#2C3446] text-white p-4 rounded-full shadow-2xl border-4 border-[#FDF8E2]"
-      >
-        <Plus size={24} />
-      </motion.button>
-
-      {/* 🔐 ADMIN MODAL */}
-      <AnimatePresence>
-        {showAdmin && (
-          <div className="fixed inset-0 z-50 bg-black/60 backdrop-blur-sm flex items-center justify-center p-4">
-            <motion.div 
-              initial={{ scale: 0.9, opacity: 0 }}
-              animate={{ scale: 1, opacity: 1 }}
-              exit={{ scale: 0.9, opacity: 0 }}
-              className="bg-white w-full max-w-md rounded-3xl p-8 relative shadow-2xl"
-            >
-              <button onClick={() => setShowAdmin(false)} className="absolute top-4 right-4 text-gray-400 hover:text-black">
-                <X size={24} />
-              </button>
-
-              {!isAuthenticated ? (
-                <div className="text-center">
-                   <div className="w-16 h-16 bg-gray-100 rounded-full flex items-center justify-center mx-auto mb-4 text-[#2C3446]">
-                    <Lock size={32} />
-                  </div>
-                  <h2 className="text-2xl font-black text-[#2C3446] mb-2">ADMIN UPLINK</h2>
-                  <p className="text-gray-500 mb-6 text-sm">Enter security clearance code.</p>
-                  <form onSubmit={handleLogin} className="flex gap-2">
-                    <input 
-                      type="password" placeholder="Pass: admin" value={password} onChange={(e) => setPassword(e.target.value)}
-                      className="flex-1 bg-gray-100 border border-gray-200 rounded-xl px-4 py-3 outline-none focus:border-[#2C3446]"
-                    />
-                    <button type="submit" className="bg-[#2C3446] text-white px-4 rounded-xl font-bold">Enter</button>
-                  </form>
-                </div>
-              ) : (
-                <div className="text-center">
-                  <h2 className="text-2xl font-black text-[#2C3446] mb-6">ADD NEW LINK</h2>
-                  <input type="text" placeholder="Title (e.g. My GitHub)" className="w-full bg-gray-100 rounded-xl px-4 py-3 mb-3 outline-none" />
-                  <input type="text" placeholder="URL (https://...)" className="w-full bg-gray-100 rounded-xl px-4 py-3 mb-6 outline-none" />
-                  
-                  {status === "idle" && (
-                    <button onClick={handleAddLink} className="w-full bg-[#2C3446] text-white py-4 rounded-xl font-bold hover:opacity-90 transition-opacity">
-                      Save Link
-                    </button>
-                  )}
-                  {status === "uploading" && <span className="font-bold text-[#2C3446] animate-pulse">Saving...</span>}
-                  {status === "success" && <span className="font-bold text-green-500">Link Added!</span>}
-                </div>
-              )}
-            </motion.div>
-          </div>
-        )}
-      </AnimatePresence>
     </div>
   );
 }

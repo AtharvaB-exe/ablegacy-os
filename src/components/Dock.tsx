@@ -1,7 +1,7 @@
 "use client";
 
 import { motion } from "framer-motion";
-import { Home, PenTool, User, Camera, Link, Fingerprint } from "lucide-react";
+import { Home, PenTool, User, Camera, Link } from "lucide-react";
 import React from "react";
 import { usePathname, useRouter } from "next/navigation";
 
@@ -37,13 +37,6 @@ export function Dock() {
             </button>
           );
         })}
-
-        <div className="w-px h-6 bg-white/20 mx-1 md:mx-2" />
-
-        {/* 👆 Just a cool decorative button now */}
-        <button className="flex items-center justify-center w-10 h-10 md:w-12 md:h-12 rounded-full text-[#888D7A] hover:bg-white/10 hover:text-white transition-all">
-          <Fingerprint size={20} className="md:w-[24px] md:h-[24px]" />
-        </button>
 
       </div>
     </div>
