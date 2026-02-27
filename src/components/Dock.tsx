@@ -13,14 +13,14 @@ const icons = [
   { id: 6, icon: Link, path: "/connect", label: "Connect" },
 ];
 
-// 🛠️ FIX: Added "default" back so the layout can read it, and z-[100] to stay above video
 export default function Dock() {
   const router = useRouter();
   const pathname = usePathname();
 
   return (
     <div className="fixed bottom-6 left-1/2 -translate-x-1/2 z-[100] w-auto max-w-[90vw]">
-      <div className="flex items-center gap-2 md:gap-4 px-4 py-3 md:px-6 md:py-4 glass-panel rounded-full overflow-x-auto no-scrollbar">
+      {/* 🧊 NATIVE TAILWIND GLASS */}
+      <div className="flex items-center gap-2 md:gap-4 px-4 py-3 md:px-6 md:py-4 bg-white/40 backdrop-blur-xl border border-white/50 rounded-full shadow-2xl overflow-x-auto no-scrollbar">
         
         {icons.map((item) => {
           const isActive = pathname === item.path;
@@ -29,7 +29,7 @@ export default function Dock() {
               key={item.id}
               onClick={() => router.push(item.path)}
               className={`relative flex flex-col items-center justify-center w-10 h-10 md:w-12 md:h-12 rounded-full transition-all duration-300 group
-                ${isActive ? "bg-white/50 text-black scale-110 shadow-lg" : "text-gray-600 hover:bg-white/30 hover:text-black"}`}
+                ${isActive ? "bg-white/70 text-black scale-110 shadow-lg" : "text-black/70 hover:bg-white/60 hover:text-black"}`}
             >
               <item.icon size={20} className="md:w-[24px] md:h-[24px]" />
               {isActive && (
