@@ -56,4 +56,24 @@ export default function PhotosPage() {
                   <h2 className="text-2xl font-black text-[#1e293b] mb-2">OPTICS ADMIN</h2>
                   <form onSubmit={handleLogin} className="flex gap-2 mt-6">
                     <input type="password" placeholder="Enter Password" value={password} onChange={(e) => setPassword(e.target.value)} className="flex-1 glass-button px-4 py-3 outline-none focus:bg-white/60" />
-                    <button type="submit"
+                    <button type="submit" className="glass-button px-6 font-bold hover:bg-white/80">Enter</button>
+                  </form>
+                </div>
+              ) : (
+                <div className="text-center">
+                  <h2 className="text-2xl font-black text-[#1e293b] mb-6">UPLOAD PHOTO</h2>
+                  <div className="glass-button border-dashed p-8 mb-6 cursor-pointer group">
+                    {status === "idle" && <div className="flex flex-col items-center text-[#475569] group-hover:text-[#1e293b]"><Upload size={48} className="mb-2" /><span className="font-bold">Select Image</span></div>}
+                    {status === "uploading" && <span className="font-bold text-[#1e293b] animate-pulse">Uploading...</span>}
+                    {status === "success" && <div className="flex flex-col items-center text-green-600"><Check size={48} className="mb-2" /><span className="font-bold">Uploaded!</span></div>}
+                  </div>
+                  {status === "idle" && <button onClick={handleUpload} className="w-full glass-button py-4 font-bold hover:bg-white/80">Upload</button>}
+                </div>
+              )}
+            </motion.div>
+          </div>
+        )}
+      </AnimatePresence>
+    </div>
+  );
+}
