@@ -5,10 +5,10 @@ import { ArrowUpRight, Plus, X, Upload, Check, Lock } from "lucide-react";
 import { useState } from "react";
 
 const projects = [
-  { id: 1, title: "AB Legacy Identity", category: "BRANDING", description: "Personal Brand & Logo Design.", src: "/logo.png", colSpan: "md:col-span-2" },
-  { id: 2, title: "Pink Aura", category: "UI DESIGN", description: "Fashion App Interface.", src: "https://images.unsplash.com/photo-1534670007418-fbb7f6cf32c3?q=80&w=688&auto=format&fit=crop", colSpan: "md:col-span-1" },
-  { id: 3, title: "Cyber HUD", category: "GAME MOD", description: "Sci-fi inventory system.", src: "https://images.unsplash.com/photo-1550745165-9bc0b252726f?q=80&w=1470&auto=format&fit=crop", colSpan: "md:col-span-1" },
-  { id: 4, title: "Zenith Vector", category: "ILLUSTRATION", description: "Minimalist vector art.", src: "https://images.unsplash.com/photo-1626785774573-4b7993143a2d?q=80&w=1470&auto=format&fit=crop", colSpan: "md:col-span-2" },
+  { id: 1, title: "AB Legacy Identity", category: "BRANDING", description: "Personal Brand & Logo Design.", src: "/logo.png", colSpan: "md:col-span-2", color: "bg-[#0C2C55]" },
+  { id: 2, title: "Pink Aura", category: "UI DESIGN", description: "Fashion App Interface.", src: "https://images.unsplash.com/photo-1534670007418-fbb7f6cf32c3?q=80&w=688&auto=format&fit=crop", colSpan: "md:col-span-1", color: "bg-[#558C8C]" },
+  { id: 3, title: "Cyber HUD", category: "GAME MOD", description: "Sci-fi inventory system.", src: "https://images.unsplash.com/photo-1550745165-9bc0b252726f?q=80&w=1470&auto=format&fit=crop", colSpan: "md:col-span-1", color: "bg-[#33658A]" },
+  { id: 4, title: "Zenith Vector", category: "ILLUSTRATION", description: "Minimalist vector art.", src: "https://images.unsplash.com/photo-1626785774573-4b7993143a2d?q=80&w=1470&auto=format&fit=crop", colSpan: "md:col-span-2", color: "bg-[#2F4858]" },
 ];
 
 export default function WorkPage() {
@@ -19,143 +19,74 @@ export default function WorkPage() {
 
   const handleLogin = (e: React.FormEvent) => {
     e.preventDefault();
-    if (password === "Athu8828") { 
-      setIsAuthenticated(true); 
-      setPassword(""); 
-    } else { 
-      alert("Wrong Password"); 
-    }
+    if (password === "Athu8828") { setIsAuthenticated(true); setPassword(""); } 
+    else { alert("Wrong Password"); }
   };
 
   const handleUpload = () => {
     setStatus("uploading");
     setTimeout(() => {
       setStatus("success");
-      setTimeout(() => { 
-        setShowAdmin(false); 
-        setStatus("idle"); 
-        setIsAuthenticated(false); 
-      }, 1500);
+      setTimeout(() => { setShowAdmin(false); setStatus("idle"); setIsAuthenticated(false); }, 1500);
     }, 1500);
   };
 
   return (
-    <div className="min-h-screen w-full pt-[10vh] px-4 md:px-10 pb-32 z-10 text-[#1e293b]">
-      
+    <div className="min-h-screen w-full bg-[#FDF8E2] text-[#33658A] pt-[10vh] px-4 md:px-10 pb-32">
       <motion.div initial={{ opacity: 0, y: 20 }} animate={{ opacity: 1, y: 0 }} className="mb-12">
         <h1 className="text-6xl md:text-8xl font-black tracking-tighter mb-2">PROTOCOLS</h1>
-        <p className="font-mono text-sm tracking-widest text-[#475569]">Loading Design Schematics...</p>
+        <p className="text-[#558C8C] font-mono text-sm tracking-widest">Loading Design Schematics...</p>
+        <div className="h-px w-full bg-[#558C8C] opacity-30 mt-6" />
       </motion.div>
 
-      <div className="grid grid-cols-1 md:grid-cols-3 gap-6 max-w-6xl mx-auto">
+      <div className="grid grid-cols-1 md:grid-cols-3 gap-4 max-w-6xl mx-auto">
         {projects.map((project, i) => (
           <motion.div
             key={project.id}
-            initial={{ opacity: 0, scale: 0.9 }} 
-            whileInView={{ opacity: 1, scale: 1 }} 
-            viewport={{ once: true }} 
-            transition={{ delay: i * 0.1 }}
-            className={`${project.colSpan} glass-panel h-[300px] md:h-[400px] relative group overflow-hidden cursor-pointer`}
+            initial={{ opacity: 0, scale: 0.9 }} whileInView={{ opacity: 1, scale: 1 }} viewport={{ once: true }} transition={{ delay: i * 0.1 }}
+            className={`${project.colSpan} ${project.color} h-[300px] md:h-[400px] rounded-3xl relative group overflow-hidden cursor-pointer shadow-xl`}
           >
-            <img 
-              src={project.src} 
-              alt={project.title} 
-              className="absolute inset-0 w-full h-full object-cover transition-transform duration-700 group-hover:scale-110 opacity-70 group-hover:opacity-100 mix-blend-overlay" 
-            />
-            <div className="absolute inset-0 bg-gradient-to-t from-white/80 via-white/10 to-transparent" />
-            
+            <img src={project.src} alt={project.title} className="absolute inset-0 w-full h-full object-cover transition-transform duration-700 group-hover:scale-110 opacity-60 group-hover:opacity-100" />
+            <div className="absolute inset-0 bg-gradient-to-t from-black/80 via-black/20 to-transparent" />
             <div className="flex justify-between items-start relative z-10 p-8">
-              <span className="glass-button px-4 py-1.5 text-xs font-bold uppercase tracking-wider text-[#1e293b]">
-                {project.category}
-              </span>
-              <div className="glass-button p-3 text-[#1e293b]">
-                <ArrowUpRight size={20} />
-              </div>
+              <span className="bg-white/20 backdrop-blur-md px-3 py-1 rounded-full text-xs font-bold uppercase tracking-wider text-white border border-white/20">{project.category}</span>
+              <div className="bg-white/20 p-2 rounded-full backdrop-blur-md text-white border border-white/20"><ArrowUpRight size={20} /></div>
             </div>
-
-            <div className="absolute bottom-8 left-8 z-10 text-[#1e293b]">
-              <h2 className="text-3xl font-black mb-1">{project.title}</h2>
-              <p className="font-medium text-[#475569]">{project.description}</p>
+            <div className="absolute bottom-8 left-8 z-10 text-white">
+              <h2 className="text-3xl font-black mb-1 drop-shadow-lg">{project.title}</h2>
+              <p className="opacity-90 font-medium drop-shadow-md">{project.description}</p>
             </div>
           </motion.div>
         ))}
       </div>
 
-      <motion.button 
-        whileHover={{ scale: 1.1 }} 
-        whileTap={{ scale: 0.9 }} 
-        onClick={() => setShowAdmin(true)} 
-        className="fixed bottom-24 right-6 md:right-10 z-30 glass-button p-4 text-[#1e293b]"
-      >
-        <Plus size={28} />
+      <motion.button whileHover={{ scale: 1.1 }} whileTap={{ scale: 0.9 }} onClick={() => setShowAdmin(true)} className="fixed bottom-24 right-6 md:right-10 z-30 bg-[#33658A] text-white p-4 rounded-full shadow-2xl border-4 border-[#FDF8E2]">
+        <Plus size={24} />
       </motion.button>
 
       <AnimatePresence>
         {showAdmin && (
-          <div className="fixed inset-0 z-50 bg-black/40 backdrop-blur-md flex items-center justify-center p-4">
-            <motion.div 
-              initial={{ scale: 0.9, opacity: 0 }} 
-              animate={{ scale: 1, opacity: 1 }} 
-              exit={{ scale: 0.9, opacity: 0 }} 
-              className="glass-panel w-full max-w-md p-8 relative"
-            >
-              <button 
-                onClick={() => setShowAdmin(false)} 
-                className="absolute top-4 right-4 text-[#475569] hover:text-[#1e293b]"
-              >
-                <X size={24} />
-              </button>
-
+          <div className="fixed inset-0 z-50 bg-black/60 backdrop-blur-sm flex items-center justify-center p-4">
+            <motion.div initial={{ scale: 0.9, opacity: 0 }} animate={{ scale: 1, opacity: 1 }} exit={{ scale: 0.9, opacity: 0 }} className="bg-white w-full max-w-md rounded-3xl p-8 relative shadow-2xl">
+              <button onClick={() => setShowAdmin(false)} className="absolute top-4 right-4 text-gray-400 hover:text-black"><X size={24} /></button>
               {!isAuthenticated ? (
                 <div className="text-center">
-                  <div className="w-16 h-16 glass-button flex items-center justify-center mx-auto mb-4 text-[#1e293b]">
-                    <Lock size={32} />
-                  </div>
-                  <h2 className="text-2xl font-black text-[#1e293b] mb-2">ADMIN PROTOCOL</h2>
-                  <form onSubmit={handleLogin} className="flex gap-2 mt-6">
-                    <input 
-                      type="password" 
-                      placeholder="Enter Password" 
-                      value={password} 
-                      onChange={(e) => setPassword(e.target.value)} 
-                      className="flex-1 glass-button px-4 py-3 outline-none" 
-                    />
-                    <button 
-                      type="submit" 
-                      className="glass-button px-6 font-bold hover:bg-white/80"
-                    >
-                      Enter
-                    </button>
+                  <div className="w-16 h-16 bg-gray-100 rounded-full flex items-center justify-center mx-auto mb-4 text-[#33658A]"><Lock size={32} /></div>
+                  <h2 className="text-2xl font-black text-[#33658A] mb-2">ADMIN PROTOCOL</h2>
+                  <form onSubmit={handleLogin} className="flex gap-2">
+                    <input type="password" placeholder="Enter Password" value={password} onChange={(e) => setPassword(e.target.value)} className="flex-1 bg-gray-100 border border-gray-200 rounded-xl px-4 py-3 outline-none focus:border-[#33658A]" />
+                    <button type="submit" className="bg-[#33658A] text-white px-4 rounded-xl font-bold">Enter</button>
                   </form>
                 </div>
               ) : (
                 <div className="text-center">
-                  <h2 className="text-2xl font-black text-[#1e293b] mb-6">UPLOAD PROJECT</h2>
-                  <div className="glass-button border-dashed p-8 mb-6 cursor-pointer group">
-                    {status === "idle" && (
-                      <div className="flex flex-col items-center text-[#475569] group-hover:text-[#1e293b]">
-                        <Upload size={48} className="mb-2" />
-                        <span className="font-bold">Select File</span>
-                      </div>
-                    )}
-                    {status === "uploading" && (
-                      <span className="font-bold text-[#1e293b] animate-pulse">Uploading...</span>
-                    )}
-                    {status === "success" && (
-                      <div className="flex flex-col items-center text-green-600">
-                        <Check size={48} className="mb-2" />
-                        <span className="font-bold">Complete!</span>
-                      </div>
-                    )}
+                  <h2 className="text-2xl font-black text-[#33658A] mb-6">UPLOAD PROJECT</h2>
+                  <div className="border-2 border-dashed border-gray-300 rounded-2xl p-8 mb-6 cursor-pointer hover:bg-gray-50 hover:border-[#33658A] transition-colors group">
+                    {status === "idle" && <div className="flex flex-col items-center text-gray-400 group-hover:text-[#33658A]"><Upload size={48} className="mb-2" /><span className="font-bold">Click to Select File</span></div>}
+                    {status === "uploading" && <span className="font-bold text-[#33658A] animate-pulse">Uploading Data...</span>}
+                    {status === "success" && <div className="flex flex-col items-center text-green-500"><Check size={48} className="mb-2" /><span className="font-bold">Upload Complete!</span></div>}
                   </div>
-                  {status === "idle" && (
-                    <button 
-                      onClick={handleUpload} 
-                      className="w-full glass-button py-4 font-bold hover:bg-white/80"
-                    >
-                      Confirm Upload
-                    </button>
-                  )}
+                  {status === "idle" && <button onClick={handleUpload} className="w-full bg-[#33658A] text-white py-4 rounded-xl font-bold hover:bg-[#254b66] transition-colors">Confirm Upload</button>}
                 </div>
               )}
             </motion.div>
