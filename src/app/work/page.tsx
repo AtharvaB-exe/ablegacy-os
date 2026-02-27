@@ -19,15 +19,23 @@ export default function WorkPage() {
 
   const handleLogin = (e: React.FormEvent) => {
     e.preventDefault();
-    if (password === "Athu8828") { setIsAuthenticated(true); setPassword(""); } 
-    else { alert("Wrong Password"); }
+    if (password === "Athu8828") { 
+      setIsAuthenticated(true); 
+      setPassword(""); 
+    } else { 
+      alert("Wrong Password"); 
+    }
   };
 
   const handleUpload = () => {
     setStatus("uploading");
     setTimeout(() => {
       setStatus("success");
-      setTimeout(() => { setShowAdmin(false); setStatus("idle"); setIsAuthenticated(false); }, 1500);
+      setTimeout(() => { 
+        setShowAdmin(false); 
+        setStatus("idle"); 
+        setIsAuthenticated(false); 
+      }, 1500);
     }, 1500);
   };
 
@@ -43,15 +51,26 @@ export default function WorkPage() {
         {projects.map((project, i) => (
           <motion.div
             key={project.id}
-            initial={{ opacity: 0, scale: 0.9 }} whileInView={{ opacity: 1, scale: 1 }} viewport={{ once: true }} transition={{ delay: i * 0.1 }}
+            initial={{ opacity: 0, scale: 0.9 }} 
+            whileInView={{ opacity: 1, scale: 1 }} 
+            viewport={{ once: true }} 
+            transition={{ delay: i * 0.1 }}
             className={`${project.colSpan} glass-panel h-[300px] md:h-[400px] relative group overflow-hidden cursor-pointer`}
           >
-            <img src={project.src} alt={project.title} className="absolute inset-0 w-full h-full object-cover transition-transform duration-700 group-hover:scale-110 opacity-70 group-hover:opacity-100 mix-blend-overlay" />
+            <img 
+              src={project.src} 
+              alt={project.title} 
+              className="absolute inset-0 w-full h-full object-cover transition-transform duration-700 group-hover:scale-110 opacity-70 group-hover:opacity-100 mix-blend-overlay" 
+            />
             <div className="absolute inset-0 bg-gradient-to-t from-white/80 via-white/10 to-transparent" />
             
             <div className="flex justify-between items-start relative z-10 p-8">
-              <span className="glass-button px-4 py-1.5 text-xs font-bold uppercase tracking-wider text-[#1e293b]">{project.category}</span>
-              <div className="glass-button p-3 text-[#1e293b]"><ArrowUpRight size={20} /></div>
+              <span className="glass-button px-4 py-1.5 text-xs font-bold uppercase tracking-wider text-[#1e293b]">
+                {project.category}
+              </span>
+              <div className="glass-button p-3 text-[#1e293b]">
+                <ArrowUpRight size={20} />
+              </div>
             </div>
 
             <div className="absolute bottom-8 left-8 z-10 text-[#1e293b]">
@@ -62,19 +81,87 @@ export default function WorkPage() {
         ))}
       </div>
 
-      <motion.button whileHover={{ scale: 1.1 }} whileTap={{ scale: 0.9 }} onClick={() => setShowAdmin(true)} className="fixed bottom-24 right-6 md:right-10 z-30 glass-button p-4 text-[#1e293b]">
+      <motion.button 
+        whileHover={{ scale: 1.1 }} 
+        whileTap={{ scale: 0.9 }} 
+        onClick={() => setShowAdmin(true)} 
+        className="fixed bottom-24 right-6 md:right-10 z-30 glass-button p-4 text-[#1e293b]"
+      >
         <Plus size={28} />
       </motion.button>
 
       <AnimatePresence>
         {showAdmin && (
           <div className="fixed inset-0 z-50 bg-black/40 backdrop-blur-md flex items-center justify-center p-4">
-            <motion.div initial={{ scale: 0.9, opacity: 0 }} animate={{ scale: 1, opacity: 1 }} exit={{ scale: 0.9, opacity: 0 }} className="glass-panel w-full max-w-md p-8 relative">
-              <button onClick={() => setShowAdmin(false)} className="absolute top-4 right-4 text-[#475569] hover:text-[#1e293b]"><X size={24} /></button>
+            <motion.div 
+              initial={{ scale: 0.9, opacity: 0 }} 
+              animate={{ scale: 1, opacity: 1 }} 
+              exit={{ scale: 0.9, opacity: 0 }} 
+              className="glass-panel w-full max-w-md p-8 relative"
+            >
+              <button 
+                onClick={() => setShowAdmin(false)} 
+                className="absolute top-4 right-4 text-[#475569] hover:text-[#1e293b]"
+              >
+                <X size={24} />
+              </button>
 
               {!isAuthenticated ? (
                 <div className="text-center">
-                  <div className="w-16 h-16 glass-button flex items-center justify-center mx-auto mb-4 text-[#1e293b]"><Lock size={32} /></div>
+                  <div className="w-16 h-16 glass-button flex items-center justify-center mx-auto mb-4 text-[#1e293b]">
+                    <Lock size={32} />
+                  </div>
                   <h2 className="text-2xl font-black text-[#1e293b] mb-2">ADMIN PROTOCOL</h2>
                   <form onSubmit={handleLogin} className="flex gap-2 mt-6">
-                    <input type="password" placeholder="Enter Password" value={password} onChange={(e) => setPassword(e.target.value)} className="flex-1 glass-button px-4 py-3 outline-none focus:bg
+                    <input 
+                      type="password" 
+                      placeholder="Enter Password" 
+                      value={password} 
+                      onChange={(e) => setPassword(e.target.value)} 
+                      className="flex-1 glass-button px-4 py-3 outline-none" 
+                    />
+                    <button 
+                      type="submit" 
+                      className="glass-button px-6 font-bold hover:bg-white/80"
+                    >
+                      Enter
+                    </button>
+                  </form>
+                </div>
+              ) : (
+                <div className="text-center">
+                  <h2 className="text-2xl font-black text-[#1e293b] mb-6">UPLOAD PROJECT</h2>
+                  <div className="glass-button border-dashed p-8 mb-6 cursor-pointer group">
+                    {status === "idle" && (
+                      <div className="flex flex-col items-center text-[#475569] group-hover:text-[#1e293b]">
+                        <Upload size={48} className="mb-2" />
+                        <span className="font-bold">Select File</span>
+                      </div>
+                    )}
+                    {status === "uploading" && (
+                      <span className="font-bold text-[#1e293b] animate-pulse">Uploading...</span>
+                    )}
+                    {status === "success" && (
+                      <div className="flex flex-col items-center text-green-600">
+                        <Check size={48} className="mb-2" />
+                        <span className="font-bold">Complete!</span>
+                      </div>
+                    )}
+                  </div>
+                  {status === "idle" && (
+                    <button 
+                      onClick={handleUpload} 
+                      className="w-full glass-button py-4 font-bold hover:bg-white/80"
+                    >
+                      Confirm Upload
+                    </button>
+                  )}
+                </div>
+              )}
+            </motion.div>
+          </div>
+        )}
+      </AnimatePresence>
+    </div>
+  );
+}

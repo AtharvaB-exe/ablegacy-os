@@ -3,13 +3,27 @@
 @tailwind utilities;
 
 @layer components {
-  /* The main frosted glass card */
+  /* Safely defined Glass Panel */
   .glass-panel {
-    @apply bg-white/40 backdrop-blur-2xl border border-white/60 shadow-[0_8px_32px_0_rgba(31,38,135,0.1)] rounded-3xl;
+    background-color: rgba(255, 255, 255, 0.4);
+    backdrop-filter: blur(16px);
+    -webkit-backdrop-filter: blur(16px);
+    border: 1px solid rgba(255, 255, 255, 0.6);
+    box-shadow: 0 8px 32px 0 rgba(31, 38, 135, 0.1);
+    border-radius: 1.5rem;
   }
   
-  /* Glassy buttons or small elements */
+  /* Safely defined Glass Button */
   .glass-button {
-    @apply bg-white/50 backdrop-blur-xl border border-white/70 shadow-sm rounded-2xl hover:bg-white/70 transition-all duration-300;
+    background-color: rgba(255, 255, 255, 0.5);
+    backdrop-filter: blur(12px);
+    -webkit-backdrop-filter: blur(12px);
+    border: 1px solid rgba(255, 255, 255, 0.7);
+    border-radius: 1rem;
+    transition: all 0.3s ease;
+  }
+
+  .glass-button:hover {
+    background-color: rgba(255, 255, 255, 0.8);
   }
 }
