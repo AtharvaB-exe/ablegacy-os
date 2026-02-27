@@ -6,83 +6,97 @@ import { Cpu, Zap } from "lucide-react";
 
 export default function Home() {
   return (
-    <div className="min-h-screen w-full pt-[12vh] px-4 md:px-10 pb-20 overflow-x-hidden z-10 text-black">
+    <div className="min-h-screen w-full bg-[#F2F2F2] text-[#666E5D] pt-[12vh] px-4 md:px-10 pb-20 overflow-x-hidden">
+      
       <div className="max-w-4xl mx-auto">
         
-        {/* HEADER SECTION (Glass Panel) */}
+        {/* HEADER SECTION */}
         <motion.div 
-          initial={{ opacity: 0, y: 20 }} 
-          animate={{ opacity: 1, y: 0 }} 
-          // 🧊 NATIVE TAILWIND GLASS
-          className="bg-white/40 backdrop-blur-xl border border-white/50 shadow-2xl p-8 md:p-12 rounded-[2rem] mb-12 flex flex-col md:flex-row items-center gap-8"
+          initial={{ opacity: 0, y: 20 }}
+          animate={{ opacity: 1, y: 0 }}
+          className="flex flex-col md:flex-row items-center gap-8 mb-12"
         >
-          {/* Profile Image */}
           <div className="relative w-40 h-40 md:w-56 md:h-56 flex-shrink-0">
-            <div className="relative w-full h-full rounded-full overflow-hidden border-4 border-white/80 shadow-2xl bg-white/20">
+            <div className="absolute inset-0 bg-[#A9AC97] rounded-full blur-2xl opacity-40" />
+            <div className="relative w-full h-full rounded-full overflow-hidden border-4 border-white shadow-xl">
               <Image src="/me.jpg" alt="Atharva Bulbule" fill className="object-cover" />
             </div>
           </div>
 
-          {/* Text Info */}
           <div className="text-center md:text-left">
-            <h1 className="text-5xl md:text-7xl font-black tracking-tighter uppercase mb-2 drop-shadow-sm">
+            <h1 className="text-5xl md:text-7xl font-black tracking-tighter text-[#666E5D] uppercase mb-2">
               Atharva Bulbule
             </h1>
-            {/* Badges (Fixed spacing with inline-block) */}
             <div className="flex flex-wrap justify-center md:justify-start gap-3 mb-4">
-              <span className="inline-block px-4 py-1.5 bg-white/60 backdrop-blur-md border border-white/60 rounded-full font-mono text-xs font-bold shadow-sm">CSD STUDENT</span>
-              <span className="inline-block px-4 py-1.5 bg-white/60 backdrop-blur-md border border-white/60 rounded-full font-mono text-xs font-bold shadow-sm">FREELANCER</span>
-              <span className="inline-block px-4 py-1.5 bg-white/60 backdrop-blur-md border border-white/60 rounded-full font-mono text-xs font-bold shadow-sm">SVIT VASAD</span>
+              <span className="px-3 py-1 bg-[#D1D1D1] text-[#666E5D] rounded-md font-mono text-xs font-bold">CSD STUDENT</span>
+              <span className="px-3 py-1 bg-[#D1D1D1] text-[#666E5D] rounded-md font-mono text-xs font-bold">FREELANCER</span>
+              <span className="px-3 py-1 bg-[#D1D1D1] text-[#666E5D] rounded-md font-mono text-xs font-bold">SVIT VASAD</span>
             </div>
-            <p className="text-xl font-medium max-w-lg text-black/80 font-semibold drop-shadow-sm">
+            <p className="text-xl text-[#888D7A] font-medium max-w-lg">
               Passionate Designer & Developer bridging the gap between creative visuals and functional code.
             </p>
           </div>
         </motion.div>
 
-        {/* SKILLS & STATS GRID */}
+        {/* 📊 SKILLS & STATS */}
         <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
           
-          {/* CARD 1 (Glass Panel) */}
-          <motion.div className="bg-white/40 backdrop-blur-xl border border-white/50 shadow-2xl p-8 rounded-[2rem]">
-            <div className="flex items-center gap-3 mb-6 opacity-80">
+          <motion.div 
+            initial={{ opacity: 0, scale: 0.9 }}
+            whileInView={{ opacity: 1, scale: 1 }}
+            className="bg-[#E6E6E6] p-8 rounded-3xl"
+          >
+            <div className="flex items-center gap-3 mb-6 opacity-60">
               <Cpu size={24} />
               <h3 className="font-bold font-mono tracking-widest">SYSTEM SPECS</h3>
             </div>
-            <div className="space-y-4 font-mono text-sm font-bold">
+            
+            <div className="space-y-4 font-mono text-sm font-bold text-[#666E5D]">
               <div className="flex justify-between items-center">
                 <span>UI/UX DESIGN</span>
-                <div className="w-32 h-2.5 bg-white/50 border border-white/60 rounded-full overflow-hidden shadow-inner"><div className="h-full bg-black/80 w-[95%]" /></div>
+                <div className="w-32 h-2 bg-white rounded-full overflow-hidden">
+                  <div className="h-full bg-[#666E5D] w-[95%]" />
+                </div>
               </div>
               <div className="flex justify-between items-center">
                 <span>REACT / NEXT.JS</span>
-                <div className="w-32 h-2.5 bg-white/50 border border-white/60 rounded-full overflow-hidden shadow-inner"><div className="h-full bg-black/80 w-[75%]" /></div>
+                <div className="w-32 h-2 bg-white rounded-full overflow-hidden">
+                  <div className="h-full bg-[#666E5D] w-[75%]" />
+                </div>
               </div>
               <div className="flex justify-between items-center">
                 <span>GRAPHIC DESIGN</span>
-                <div className="w-32 h-2.5 bg-white/50 border border-white/60 rounded-full overflow-hidden shadow-inner"><div className="h-full bg-black/80 w-[90%]" /></div>
+                <div className="w-32 h-2 bg-white rounded-full overflow-hidden">
+                  <div className="h-full bg-[#666E5D] w-[90%]" />
+                </div>
               </div>
               <div className="flex justify-between items-center">
                 <span>GAME MODDING</span>
-                <div className="w-32 h-2.5 bg-white/50 border border-white/60 rounded-full overflow-hidden shadow-inner"><div className="h-full bg-black/80 w-[85%]" /></div>
+                <div className="w-32 h-2 bg-white rounded-full overflow-hidden">
+                  <div className="h-full bg-[#666E5D] w-[85%]" />
+                </div>
               </div>
             </div>
           </motion.div>
 
-          {/* CARD 2 (Glass Panel) */}
-          <motion.div className="bg-white/40 backdrop-blur-xl border border-white/50 shadow-2xl p-8 rounded-[2rem]">
-            <div className="flex items-center gap-3 mb-6 opacity-80">
+          <motion.div 
+             initial={{ opacity: 0, scale: 0.9 }}
+             whileInView={{ opacity: 1, scale: 1 }}
+             transition={{ delay: 0.1 }}
+             className="bg-white p-8 rounded-3xl border-2 border-[#E6E6E6]"
+          >
+            <div className="flex items-center gap-3 mb-6 opacity-60">
               <Zap size={24} />
               <h3 className="font-bold font-mono tracking-widest">CURRENT STATUS</h3>
             </div>
             <div className="space-y-4">
-              <div className="p-4 bg-white/60 backdrop-blur-md border border-white/60 shadow-sm rounded-xl">
-                <h4 className="font-bold mb-1">🎓 Education</h4>
-                <p className="text-sm opacity-80 font-medium">1st Year CSD @ SVIT Vasad</p>
+              <div className="p-4 bg-[#F9F9F9] rounded-xl border border-[#EEEEEE]">
+                <h4 className="font-bold text-[#666E5D] mb-1">🎓 Education</h4>
+                <p className="text-sm text-[#888D7A]">1st Year CSD @ SVIT Vasad</p>
               </div>
-              <div className="p-4 bg-white/60 backdrop-blur-md border border-white/60 shadow-sm rounded-xl">
-                <h4 className="font-bold mb-1">💼 Freelance</h4>
-                <p className="text-sm opacity-80 font-medium">Open for UI/UX & Logo Projects</p>
+              <div className="p-4 bg-[#F9F9F9] rounded-xl border border-[#EEEEEE]">
+                <h4 className="font-bold text-[#666E5D] mb-1">💼 Freelance</h4>
+                <p className="text-sm text-[#888D7A]">Open for UI/UX & Logo Projects</p>
               </div>
             </div>
           </motion.div>
