@@ -1,56 +1,32 @@
-"use client";
-
-import { useState } from "react";
-import { motion, AnimatePresence } from "framer-motion";
-import IntroLock from "../components/IntroLock"; 
-import { Cpu, MapPin, Zap } from "lucide-react";
 import Image from "next/image";
 
 export default function Home() {
-  const [locked, setLocked] = useState(true);
-
   return (
-    <main className="min-h-screen bg-[#F2F2F2] text-[#666E5D] relative overflow-hidden font-sans">
+    <main className="flex min-h-screen flex-col items-center justify-center p-4 md:p-24 z-10">
       
-      <AnimatePresence>
-        {locked && <IntroLock onUnlock={() => setLocked(false)} />}
-      </AnimatePresence>
-
-      <div className="relative z-0 h-screen flex flex-col items-center justify-center p-4">
-        {/* Grid Background */}
-        <div className="absolute inset-0 opacity-20 bg-[linear-gradient(to_right,#A9AC97_1px,transparent_1px),linear-gradient(to_bottom,#A9AC97_1px,transparent_1px)] bg-[size:24px_24px] pointer-events-none" />
-
-        <motion.div
-          initial={{ opacity: 0, scale: 0.9 }}
-          animate={{ opacity: locked ? 0 : 1, scale: locked ? 0.9 : 1 }}
-          transition={{ delay: 0.5, duration: 1 }}
-          className="text-center max-w-5xl relative z-10 flex flex-col items-center"
-        >
-          {/* 📸 PROFILE PHOTO: Set to 'me.jpg' (Boy on Beach) */}
-          <div className="relative w-32 h-32 md:w-48 md:h-48 mb-8">
-            <div className="absolute inset-0 bg-[#A9AC97] rounded-full blur-2xl opacity-40 animate-pulse" />
-            <div className="relative w-full h-full rounded-full overflow-hidden border-4 border-white shadow-xl">
-              <Image src="/me.jpg" alt="Atharva" fill className="object-cover" priority />
-            </div>
-          </div>
-
-          <h1 className="text-5xl md:text-8xl font-black tracking-tighter mb-6 text-[#666E5D] uppercase text-center leading-tight">
+      {/* 🧊 GLASS PANEL */}
+      <div className="glass-panel p-8 md:p-12 flex flex-col md:flex-row items-center gap-8 max-w-4xl w-full">
+        
+        <div className="relative w-40 h-40 md:w-56 md:h-56 flex-shrink-0 rounded-[2rem] overflow-hidden border-4 border-white shadow-xl">
+          <Image src="/me.jpg" alt="Atharva Bulbule" fill className="object-cover" />
+        </div>
+        
+        <div className="text-center md:text-left">
+          <h1 className="text-5xl md:text-7xl font-black tracking-tighter text-[#1e293b] uppercase mb-2">
             Atharva Bulbule
           </h1>
-
-          <div className="flex flex-wrap justify-center gap-3 mb-8 text-xs md:text-sm font-mono font-bold text-[#888D7A]">
-            <span className="flex items-center gap-2 px-4 py-2 bg-white rounded-lg border border-[#D1D1D1] shadow-sm">
-              <Cpu size={14} /> CSD STUDENT
-            </span>
-            <span className="flex items-center gap-2 px-4 py-2 bg-white rounded-lg border border-[#D1D1D1] shadow-sm">
-              <Zap size={14} /> UI/UX & GAMING
-            </span>
-            <span className="flex items-center gap-2 px-4 py-2 bg-white rounded-lg border border-[#D1D1D1] shadow-sm">
-              <MapPin size={14} /> VADODARA
-            </span>
+          
+          <div className="flex flex-wrap justify-center md:justify-start gap-3 mb-4">
+            <span className="px-4 py-1.5 glass-button text-gray-700 font-bold text-xs uppercase tracking-wider">CSD STUDENT</span>
+            <span className="px-4 py-1.5 glass-button text-gray-700 font-bold text-xs uppercase tracking-wider">FREELANCER</span>
           </div>
-        </motion.div>
+          
+          <p className="text-xl text-gray-800 font-medium max-w-lg">
+            Bridging the gap between creative visual design and functional system engineering.
+          </p>
+        </div>
       </div>
+      
     </main>
   );
 }
